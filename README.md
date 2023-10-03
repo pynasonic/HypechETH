@@ -1,18 +1,21 @@
 ![Apache-2.0](https://img.shields.io/badge/license-Apache-blue)  [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 
-# Make your First Android App here! :tada:
+# Toward Ethereum 2.0! :tada:
 
-New to Android?  
-New to Java?  
 Don't know where to Start?  
 Don't know how to Start? :confused:  
 
 **Here is the One Stop Solution for Every Newcomer!**
 
-## 1. Begin with learning about Android Studio 4.2! How it works and learn about the core skills. :octocat:
+### [Chapter 2. Hello World Ethereum POA Network on Your Own Computer](https://youtu.be/-fGgwyymOyI)
+ Private network, local network. Play house. You build genesis block. You build up your own network. 
+
+
+
+## 1. References. :octocat:
 
 You can read the following book, take the following courses/videos.
-* [Hands-on App Development in Android Studio 4.2](https://www.amazon.com/gp/product/B096TL8VMP) (22 Complete Android Cases with Step-by-Step Instruction to Grow from Novice to Android Expert)
+* [Hands-on dApp](https://www.amazon.com/gp/product/B096TL8VMP) (22 Complete Android Cases with Step-by-Step Instruction to Grow from Novice to Android Expert)
 
 * [The Youtube Tutorials/Videos are here](https://youtu.be/-fGgwyymOyI) :free:
 
