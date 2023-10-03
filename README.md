@@ -10,7 +10,7 @@ Don't know how to Start? :confused:
 ### [Chapter 2. Hello World Ethereum POA Network on Your Own Computer](https://youtu.be/-fGgwyymOyI)
  Private network, local network. Play house. You build genesis block. You build up your own network. 
 
-### [Chapter 3. ](http://)
+### [Chapter 3. ](http://ibm.com)
 
 ## 1. References. :octocat:
 
