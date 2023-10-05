@@ -7,7 +7,7 @@ Don't know how to Start? :confused:
 
 **Here is the One Stop Solution for Every Newcomer!**
 
-#### [Chapter 2. Hello World Ethereum POA Network on Your Own Computer](https://youtu.be/-fGgwyymOyI)
+#### [Chapter 2. Hello World Ethereum POA Network on Your Own Computer](https://github.com/HypechETH/HypechETH/blob/main/Chapter%202.%20Hello%20World%20Ethereum%20POA%20Network%20on%20Your%20Own%20Computer.md)
  Private network, local network. Play house. You build genesis block. You build up your own network. 
 
 ### [Chapter 3. ](http://ibm.com)
