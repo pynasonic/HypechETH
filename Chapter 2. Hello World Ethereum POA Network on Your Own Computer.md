@@ -38,14 +38,65 @@ mkdir hypech/privatenetwork/HPNode2
 
 ![The Directory Strucution is like this](image.png)
 
-Hello world content goes here
-
 <a id="item-two"></a>
-### First Item
-First item content goes here
+### Step 2: Create Ethereum accounts. 
+Each node is supposed to have one account connected. We will created one account for each node. To make the life easier, we store the password as a text file. 
+
+```
+cd hypech
+echo "hpnode1pwd" > HPNode1/hpnode1pwd.txt
+echo "hpnode2pwd" > HPNode2/hpnode2pwd.txt
+geth --datadir HPNode1/ account new --password HPNode1/hpnode1pwd.txt
+geth --datadir HPNode2/ account new --password HPNode2/hpnode2pwd.txt
+```
+![Alt text](image-1.png)
+
+Make note of the public key generated for each account, as it will be referenced in the genesis block configuration below.
+
+`Public address of the key for HPNode1:   0x4915D4a7fbb61881BC312de78301C48949539aFD`
+
+`Public address of the key for HPNode2:   0x454C8CFdD4b1753f0169e7E74cd2c1766cd9272C`
+
+
 
 <a id="item-three"></a>
-### Second Item
+### Step 3: Genesis block
+
+The first block of every Ethereum-based blockchain is known as the genesis block. Since we are not connected to the public Ethereum network, we have to create the genesis block by ourselves. In the case of Ethereum mainnet, the genesis block is [hard-coded](https://github.com/ethereum/go-ethereum/blob/master/core/genesis.go) into the `geth` source code. In the case of a private/custom `geth` network, the genesis block is configurable. Create a new file called `genesis.json` and insert the following. 
+In Genesis block time, the ETH coins are assinged, not mined or through other ways. In our case, we assign 100 ETHs to HPNode1, and 200 ETHs to HPNode2. The ETH network by default is using wei as the units. One ETH equals 1 following 18 0s wei. That's why we have so many 0s in our code. 
+Other parts have specific meaning. We'll get back it later. For now, just create this file using your favorite way. 
+
+```json
+{
+  "config": {
+    "chainId": 12345,
+    "homesteadBlock": 0,
+    "eip150Block": 0,
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "constantinopleBlock": 0,
+    "petersburgBlock": 0,
+    "istanbulBlock": 0,
+    "berlinBlock": 0,
+    "clique": {
+      "period": 5,
+      "epoch": 30000
+    }
+  },
+  "difficulty": "1",
+  "gasLimit": "80000000000000000",
+  "extradata": "0x00000000000000000000000000000000000000000000000000000000000000007df9a875a174b3bc565e6424a0050ebc1b2d1d820000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+  "alloc": {
+    "4915D4a7fbb61881BC312de78301C48949539aFD": { "balance": "100000000000000000000" },
+    "454C8CFdD4b1753f0169e7E74cd2c1766cd9272C": { "balance": "200000000000000000000" }
+  }
+}
+```
+![Alt text](image-2.png)
+
+
+Second Item
 Second item content goes here
 
 
