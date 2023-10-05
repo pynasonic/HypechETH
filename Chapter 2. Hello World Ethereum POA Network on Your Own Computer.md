@@ -25,10 +25,18 @@ We'll start from the HP Pavilion. I will set up our home private Ethereum networ
 
 <a id="directory"></a>
 ### Step 1. Setup Directory Structure
-The data directories for each node will be named <span style="background-color:green">node1</span> and <span style="background-color:green">node2</span>. 
+The data directories in HP Desktop for each node will be named <span style="background-color:green">HPNode1</span> and <span style="background-color:green">HPNode2</span>. 
 
+The HP is running Ubuntu in VMWare. After starting Ubuntu, use Xshell to connect it from Windows. 
 
+```
+mkdir hypech/
+mkdir hypech/privatenetwork
+mkdir hypech/privatenetwork/HPNode1
+mkdir hypech/privatenetwork/HPNode2
+```
 
+![The Directory Strucution is like this](image.png)
 
 Hello world content goes here
 
