@@ -102,24 +102,21 @@ Before moving to the next step, let's see what we've done so far:
 
 <a id="initializegeth"></a>
 ### Step 4: Initializing the Geth Database
+
 To create a blockchain node that uses this genesis block, first use geth init to import and sets the canonical genesis block for the new chain. This requires the path to genesis.json to be passed as an argument.
 
-`geth init --datadir data genesis.json`
-
 ```
-geth --datadir data/node1/ init genesis8.json
-geth --datadir data/node2/ init genesis8.json
-geth --datadir data/miner/ init genesis8.json
+geth --datadir myNet/HPNode1/ init genesis.json
+geth --datadir myNet/HPNode2/ init genesis.json
 ```
 
-When Geth is started using --datadir data the genesis block defined in genesis.json will be used. For example:
-
-`geth --datadir data/node1 --networkid 998101`
+![Alt text](image-9.png)
 
 The default value for the storage scheme is hash. In case the plan is to use the path based storage scheme, the --state.scheme=path needs to be passed during the init step. This will ensure that the database is initialized with the correct storage scheme for the network.
 
 `geth --state.scheme=path init --datadir data genesis.json`
 
+<a id="bootnode"></a>
 ### Step 5: Setting Up Networking
 
 With the node configured and initialized, the next step is to set up a peer-to-peer network. This requires a bootstrap node. The bootstrap node is a normal node that is designated to be the entry point that other nodes use to join the network. Any node can be chosen to be the bootstrap node.
@@ -130,18 +127,27 @@ The bootstrap node IP is set using the --nat flag (the command below contains 
 
 `geth --datadir data --networkid 998101 --nat extip:192.168.68.62`
 
-The 'node record' of the bootnode can be extracted using the JS console:
 
-`geth attach --exec admin.nodeInfo.enr data/geth.ipc`
+The next step is to configure a bootnode. This can be any node, but for this tutorial the developer tool bootnode will be used to quickly and easily configure a dedicated bootnode. First the bootnode requires a key, which can be created with the following command, which will save a key to boot.key:
 
-This command should print a base64 string such as the following example. Other nodes will use the information contained in the bootstrap node record to connect to the peer-to-peer network.
-`"enr:-Ka4QN5bmTSIV7cU6mXp-wHC93A9oxm0vEiz2iDITY3UVAnAWHerzM6YPgtl9aCrMXjv-XaVJuu6urEKyZZ9R80gzwiGAYryhMp1g2V0aMrJhPxk7ASDEYwwgmlkgnY0gmlwhMCoRD6Jc2VjcDI1NmsxoQPe2Qzsd9ug79jvkPz9a1oIuJs4CAqazMpvgqAxlfS7HIRzbmFwwIN0Y3CCdl-DdWRwgnZf"
-eth@eth ~/hypech/privatenetwork8 $`
+`bootnode -genkey boot.key`
 
-`enr:-Je4QEiMeOxy_h0aweL2DtZmxnUMy-XPQcZllrMt_2V1lzynOwSx7GnjCf1k8BAsZD5dvHOBLuldzLYxpoD5UcqISiwDg2V0aMfGhGlQhqmAgmlkgnY0gmlwhKwQ_gSJc2VjcDI1NmsxoQKX_WLWgDKONsGvxtp9OeSIv2fRoGwu5vMtxfNGdut4cIN0Y3CCdl-DdWRwgnZf"`
+This key can then be used to generate a bootnode as follows:
 
-If the nodes are intended to connect across the Internet, the bootnode and all other nodes must have public IP addresses assigned, and both TCP and UDP traffic can pass their firewalls. If Internet connectivity is not required or all member nodes connect using well-known IPs, Geth should be set up to restrict peer-to-peer connectivity to an IP subnet. Doing so will further isolate the network and prevents cross-connecting with other blockchain networks in case the nodes are reachable from the Internet. Use the --netrestrict flag to configure a whitelist of IP networks:
+`bootnode -nodekey boot.key -addr :30305`
 
-`geth <other-flags> --netrestrict 172.16.254.0/24`
+The choice of port passed to -addr is arbitrary, but public Ethereum networks use 30303, so this is best avoided. The bootnode command returns the following logs to the terminal, confirming that it is running:
+![Alt text](image-11.png)
 
-With the above setting, Geth will only allow connections from the 172.16.254.0/24 subnet, and will not attempt to connect to other nodes outside of the set IP range.
+
+<a id="startnodes"></a>
+### Step 6: Start Nodes
+
+The two nodes can now be started. Open separate terminals for each node, leaving the bootnode running in the original terminal. In each terminal, run the following command (replacing node1 with node2 where appropriate, and giving each node different --port and authrpc.port IDs. The account address and password file for node 1 must also be provided:
+
+```
+cd myNet
+geth --datadir HPNode1 --port 30306 --bootnodes enode://49b24d4d9f43cb6bedb870082f7c101acfa12d6dae9f701341258eb9be5a104f6c3bc5199dc8a1b133a4b06fa4413bb9735374b09d7c04e29e1e10435c74660d@127.0.0.1:0?discport=30305  --networkid 998101 --unlock 0x79f04797E9e1aF0d31ee22079e7d83F553841DE7 --password HPNode1/hpnode1pwd.txt --authrpc.port 8551
+```
+
+This will start the node using the bootnode as an entry point. Repeat the same command with the information appropriate to node 2. In each terminal, the following logs indicate success:
