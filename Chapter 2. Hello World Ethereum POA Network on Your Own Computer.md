@@ -4,11 +4,11 @@ The best learning strategy is just do it. Before we use real money to jump into 
 
 I found 3 old computers from my basement. I'm going to setup my Ethereum with them.
 
-1. 5 years old HP Pavilion desktop with i7-8700, 16G RAM, 1T Harddrive, 120G SSD. 
+1. 5 years old RIO desktop with i7-8700, 16G RAM, 1T Harddrive, 120G SSD. 
 2. 6 years old Macbook Pro.
 3. 9 years old Lenovo V330 Laptop. 
 
-The Windows 11 is too slow in the old computer. I changed them to Windows Server 2022 (it's not necessary if you have a faster computer or you don't mind waiting). The Windows OS is installed on the 1T harddrive. 
+RIO and Laptop are Windows 11. 
 
 On top of Windows Server 2022, download VMWare Workstation 17. Create a new Virtual Machine and install Ubuntu 14.04. The virtual machine is installed on 120G SSD.
 
