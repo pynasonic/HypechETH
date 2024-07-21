@@ -1,13 +1,12 @@
 openapi: 3.0.0
 info:
-    title: "Employee Records REST API"
-    description: "An API for consuming employee records"
-    version: "1.1.2"
+  title: "My Employee Records REST API"
+  description: "An API for consuming employee records"
+  version: "1.0.2"
 
 servers:
-    - url: "/api"
+  - url: "/api"
 
-# 1. Add an Endpoint to the API Configuration File
 components:
   schemas:
     Person:
@@ -33,29 +32,117 @@ components:
         type: "integer"
 
 paths:
-    /employees:
-        get:
-            operationId: "employee.get_emps"
-            tags:
-                - "Employees"
-            summary: "View employee records"
-            responses:
-                "200":
-                    description: "Successfully viewed employee records!" 
+  /employees:
+    get:
+      operationId: "employee.get_emps"
+      tags:
+        - "Employees"
+      summary: "View employee records"
+      responses:
+        "200":
+          description: "Successfully viewed employee records!"
+    post:
+      operationId: "employee.add_emp"
+      tags:
+        - Employees
+      summary: "Add employee record"
+      requestBody:
+        description: "Enter values for id, fname, lname and role - id must be unique"
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: "person"
+              $ref: "#/components/schemas/Person"
+      responses:
+        "201":
+          description: "Successfully added employee!"
 
-        post:
-          operationId: "employee.add_emp"
-          tags:
-            - Employees
-          summary: "Add employee record"
-          requestBody:
-            description: "Enter values for id, fname, lname and role - id must be unique"
-            required: True
-            content:
-              application/json:
-                schema:
-                  x-body-name: "person"
-                  $ref: "#/components/schemas/Person"
-          responses:
-            "201":
-              description: "Successfully added employee!"
+  /employees/{id}:
+    get:
+      operationId: "employee.get_emp"
+      tags:
+        - Employees
+      summary: "View employee record"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: "Successfully viewed employee!"
+    patch:
+      operationId: "employee.mod_emp"
+      tags:
+        - Employees
+      summary: "Update employee record"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        description: "At least one <key:value> pair is needed - remove <id:value> & other unneeded <key:value> pairs."
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: 'person'
+              $ref: "#/components/schemas/Person"
+      responses:
+        "200":
+          description: Successfully updated employee!"
+    put:
+      operationId: "employee.put_emp"
+      tags:
+        - Employees
+      summary: "Update employee record"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        description: "At least one <key:value> pair is needed - remove <id:value> & other unneeded <key:value> pairs."
+        required: True
+        content:
+          application/json:
+            schema:
+              x-body-name: 'person'
+              $ref: "#/components/schemas/Person"
+      responses:
+        "200":
+          description: Successfully updated employee!"
+    delete:
+      operationId: "employee.del_emp"
+      tags:
+        - Employees
+      summary: "Delete employee record"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: "Successfully deleted employee!"
+
+  /employees/find:
+    get:
+      operationId: "employee.find_emp"
+      tags:
+        - Employees
+      summary: "Find employee record"
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+          description: Identity ( if you enter a value, leave the other 3 empty )
+        - in: query
+          name: fname
+          schema:
+            type: string
+          description: First name ( if you enter a value, leave the other 3 empty )
+        - in: query
+          name: lname
+          schema:
+            type: string
+          description: Last name ( if you enter a value, leave the other 3 empty )
+        - in: query
+          name: role
+          schema:
+            type: string
+          description: Role ( if you enter a value, leave the other 3 empty )
+      responses:
+        "200":
+          description: "Successfully found employee!"
