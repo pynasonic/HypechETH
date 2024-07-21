@@ -43,3 +43,19 @@ paths:
                 "200":
                     description: "Successfully viewed employee records!" 
 
+        post:
+          operationId: "employee.add_emp"
+          tags:
+            - Employees
+          summary: "Add employee record"
+          requestBody:
+            description: "Enter values for id, fname, lname and role - id must be unique"
+            required: True
+            content:
+              application/json:
+                schema:
+                  x-body-name: "person"
+                  $ref: "#/components/schemas/Person"
+          responses:
+            "201":
+              description: "Successfully added employee!"
