@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+    title: "Employee Records REST API"
+    description: "An API for consuming employee records"
+    version: "1.1.2"
+
+servers:
+    - url: "/api"
+
+# 1. Add an Endpoint to the API Configuration File
+components:
+  schemas:
+    Person:
+      type: "object"
+      #required:
+      #  - id
+      properties:
+        id:
+          type: "integer"
+        fname:
+          type: "string"
+        lname:
+          type: "string"
+        role:
+          type: "string"
+  parameters:
+    id:
+      name: "id"
+      description: "Employee identity"
+      in: path
+      required: True
+      schema:
+        type: "integer"
+
+paths:
+    /employees:
+        get:
+            operationId: "employee.get_emps"
+            tags:
+                - "Employees"
+            summary: "View employee records"
+            responses:
+                "200":
+                    description: "Successfully viewed employee records!" 
+
